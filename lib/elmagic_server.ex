@@ -1,0 +1,2 @@
+defmodule ElmagicServer do
+end
