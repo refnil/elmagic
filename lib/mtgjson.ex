@@ -8,7 +8,9 @@ defmodule MTGjson do
 	def all_cards do get!("AllCards") end
 
 	def process_url(url) do
-		"http://mtgjson.com/json/" <> url <> ".json"
+		fullurl = "http://mtgjson.com/json/" <> url <> ".json"
+		IO.puts fullurl
+	    fullurl	
 	end
 
 	def process_response_body(body) do

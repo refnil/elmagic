@@ -5,8 +5,6 @@ defmodule ElmagicServer.Mixfile do
     [app: :elmagic_server,
      version: "0.0.1",
      elixir: "~> 1.0",
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
      deps: deps]
   end
 
@@ -30,7 +28,6 @@ defmodule ElmagicServer.Mixfile do
     [
     {:httpoison, "~> 0.7"},
     {:poison, "~> 1.4"},
-     
     ]
   end
 end
