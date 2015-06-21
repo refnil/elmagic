@@ -1,0 +1,9 @@
+# Mix genrated files
+mix.lock
+
+# File generated during compilation
+src/*.erl
+
+# Mix generated folder
+_build/
+deps/
