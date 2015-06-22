@@ -2,7 +2,7 @@ defmodule ElmagicServer.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :elmagic_server,
+    [app: :MTGJson,
      version: "0.0.1",
      elixir: "~> 1.0",
      deps: deps]
@@ -12,7 +12,10 @@ defmodule ElmagicServer.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: [:logger]]
+    [
+      applications: [:httpoison, :con_cache],
+      mod: {MTGJson.Application,[]}
+    ]
   end
 
   # Dependencies can be Hex packages:
@@ -26,8 +29,9 @@ defmodule ElmagicServer.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [
-    {:httpoison, "~> 0.7"},
-    {:poison, "~> 1.4"},
+      {:httpoison, "~> 0.7"},
+      {:poison, "~> 1.4"},
+      {:con_cache, "~> 0.8"},
     ]
   end
 end
