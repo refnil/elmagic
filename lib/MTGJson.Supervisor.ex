@@ -1,16 +1,14 @@
 defmodule MTGJson.Supervisor do
   use Supervisor
 
-  def start_link do
-    Supervisor.start_link(__MODULE__, :ok)
+  def start_link(cache_name) do
+    Supervisor.start_link(__MODULE__, {:ok,cache_name})
   end
 
-  @cache_name :MTGJsonCache
   
-  def init(:ok) do
+  def init({:ok,cache_name}) do
     children = [
-      worker(ConCache, [[], [name: @cache_name]]),
-      worker(MTGJson.Server,[@cache_name])
+      worker(ConCache, [[ttl: 0],[name: cache_name]])
     ]
 
     supervise(children, strategy: :one_for_one)

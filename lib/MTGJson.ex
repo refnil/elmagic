@@ -1,4 +1,4 @@
-defmodule MTGjson do
+defmodule MTGJson do
 	use HTTPoison.Base
 
 	def set_codes do get!("SetCodes") end
