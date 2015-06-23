@@ -3,8 +3,8 @@ defmodule MTGjsonTest do
 
 
     def true_if_get_sucessfull(page) do
-        MTGjson.start
-        MTGjson.get!(page)
+        MTGJson.start
+        MTGJson.get!(page)
         true
     end
 

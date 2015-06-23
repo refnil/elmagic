@@ -1,21 +1,11 @@
-defmodule ElmagicServer.Mixfile do
+defmodule ElmagicUmbrella.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :MTGJson,
-     version: "0.0.1",
-     elixir: "~> 1.0",
+    [apps_path: "apps",
+     build_embedded: Mix.env == :prod,
+     start_permanent: Mix.env == :prod,
      deps: deps]
-  end
-
-  # Configuration for the OTP application
-  #
-  # Type `mix help compile.app` for more information
-  def application do
-    [
-      applications: [:httpoison, :con_cache],
-      mod: {MTGJson.Application,[]}
-    ]
   end
 
   # Dependencies can be Hex packages:
@@ -26,12 +16,11 @@ defmodule ElmagicServer.Mixfile do
   #
   #   {:mydep, git: "https://github.com/elixir-lang/mydep.git", tag: "0.1.0"}
   #
-  # Type `mix help deps` for more examples and options
+  # Type `mix help deps` for more examples and options.
+  #
+  # Dependencies listed here are available only for this project
+  # and cannot be accessed from applications inside the apps folder
   defp deps do
-    [
-      {:httpoison, "~> 0.7"},
-      {:poison, "~> 1.4"},
-      {:con_cache, "~> 0.8"},
-    ]
+    []
   end
 end
