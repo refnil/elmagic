@@ -15,7 +15,6 @@ defmodule MTGJson do
             :notfound -> if force_zip do ".zip" else "" end
             _ -> ""
         end
-		IO.puts fullurl
 	    fullurl	
 	end
 

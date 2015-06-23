@@ -1,6 +1,5 @@
 defmodule MTGJson.Application do
   use Application
-  import MTGJson
 
   @cache_name :MTGJsonCache
 

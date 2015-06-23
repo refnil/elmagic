@@ -8,7 +8,7 @@ defmodule MTGJson.Supervisor do
   
   def init({:ok,cache_name}) do
     children = [
-      worker(ConCache, [[ttl: 0],[name: cache_name]])
+      worker(ConCache, [[ttl: 3600],[name: cache_name]])
     ]
 
     supervise(children, strategy: :one_for_one)
