@@ -6,8 +6,10 @@ defmodule MtgParser do
   end
 
   def parse(text) when is_list text do
-    {:ok, tokens, _} = text |> :mtg_lexer.string
-    :mtg_parser.parse(tokens)
+    case text |> :mtg_lexer.string do
+      {:ok,tokens,_} -> :mtg_parser.parse(tokens)
+      error -> error
+    end
   end
 
   def parse(text) when is_binary text do
