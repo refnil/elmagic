@@ -1,20 +1,10 @@
 defmodule MtgParser do
+  import ExParsec.Helpers
+  import ExParsec.Base
+  import ExParsec.Text
 
-  def parse!(text) do
-    {:ok,result} = parse(text)
-    result
+  defmparser mana_symbol do
+    between(char("{"), one_of("WURBG"), char("}"))
   end
 
-  def parse(text) when is_list text do
-    case text |> :mtg_lexer.string do
-      {:ok,tokens,_} -> :mtg_parser.parse(tokens)
-      error -> error
-    end
-  end
-
-  def parse(text) when is_binary text do
-    text |> to_char_list |> parse
-  end
-
-  defmacro test, do: 2
 end

@@ -1,32 +1,30 @@
 ExUnit.start
 
 defmodule ParserTestMacro do
-  import MtgParser
   import ExUnit.Assertions
 
-  def parse_test_fun(list) do
-      for element <- list do
-        {value, result, f} = case element do
-          {c,r}   -> {c,r,&(&1 == &2)}
-          {c,r,f} -> {c,r,f}
-          e       -> flunk("Wrong format in element list. " <> inspect(e))
-        end
-          
-        received = parse(value)
-        assert(f.(received,{:ok, result}), 
-          value <> " could not be parsed.\n" <> 
-          "Received: " <> inspect(received) <> "\n" <>
-          "Instead of: " <> inspect(result)
-        )
+  def parse_test_fun(parser, list) do
+    for element <- list do
+      {value, result} = case element do
+        {c,r}   -> {c,r}
+        e       -> flunk("Wrong format in element list. " <> inspect(e))
       end
+        
+      received = ExParsec.parse_value(value,parser)
+      assert(received == {:ok,nil,result}, 
+        value <> " could not be parsed.\n" <> 
+        "Received: " <> inspect(received) <> "\n" <>
+        "Instead of: " <> inspect(result)
+      )
+    end
   end
 
-  defmacro parse_test(testName, clause) do
+  defmacro parse_test(testName, parser, clause) do
     list_value = Keyword.get(clause, :do, clause)
 
     quote do
       test unquote(testName) do
-        parse_test_fun(unquote(list_value))
+        parse_test_fun(unquote(parser), unquote(list_value))
       end
     end
   end
@@ -41,9 +39,9 @@ defmodule ParserTestMacro do
      Enum.map &List.to_tuple/1
   end
 
-  defmacro parse_test_file(testName, file) do
+  defmacro parse_test_file(testName, parser, file) do
     quote do
-      parse_test unquote(testName) do
+      parse_test unquote(parser), unquote(testName) do
         file_to_test(unquote(file))
       end
     end
