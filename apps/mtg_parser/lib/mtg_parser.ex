@@ -4,7 +4,7 @@ defmodule MtgParser do
   import ExParsec.Text
 
   defmparser mana_symbol do
-    between_braces(one_of("WURBG"))
+    between_braces(one_of("WURBGSTQCP"))
   end
 
   defmparser mana_colorless do
@@ -16,6 +16,8 @@ defmodule MtgParser do
   end
 
   defmparser int do
-    either(both(one_of("123456789"),many(digit()),&(Enum.join(List.insert_at(&2,0,&1),""))),digit())
+    either(
+      both(one_of("123456789"),many(digit()),&(Enum.join(List.insert_at(&2,0,&1),""))),
+      digit())
   end
 end
