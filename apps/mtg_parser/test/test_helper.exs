@@ -19,7 +19,8 @@ defmodule ParserTestMacro do
 
   defmacro parse_test(testName, parser, clause) do
       list_quoted = Keyword.get(clause, :do, clause)
-      {list_value,[]} = Code.eval_quoted(list_quoted)
+      Macro.to_string list_quoted
+      {list_value,[]} = Code.eval_quoted(list_quoted,[],__CALLER__)
 
       for element <- list_value do
         {value,_result} = element
