@@ -20,4 +20,11 @@ defmodule MtgParser do
       both(one_of("123456789"),many(digit()),&(Enum.join(List.insert_at(&2,0,&1),""))),
       digit())
   end
+
+  defmparser mana_dual do
+    pair_both(
+      between(char("{"),one_of("WURBG"),char("/")),
+      pair_left(one_of("WURGB"),char("}"))
+      ) 
+  end
 end
