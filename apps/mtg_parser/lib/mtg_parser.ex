@@ -21,18 +21,30 @@ defmodule MtgParser do
       digit())
   end
 
-  defmparser mana_dual do
-    pair_both(
-      between(char("{"),one_of("WURBG"),char("/")),
-      pair_left(one_of("WURGB"),char("}"))
-      ) 
+  defmparser mana_hybrid do
+    between_braces(hybrid_parser)
   end
 
-  defmparser mana_alt do
-    pair_both(
-      between(char("{"),one_of("WURBG2"),char("/")),
-      pair_left(one_of("WURGBP"),char("}"))
-      )
+  defmparser hybrid_parser do
+    Enum.map(
+      mana_list ++ [{"2","WUBRG"},{"WUBRG","P"}], 
+      fn {x,y} -> pair_both(
+        pair_left(one_of(x),char("/")),
+        one_of(y))
+      end
+      ) |> choice
+  end
+
+  def mana_list do
+    for i <- 0..4 do
+      {String.at("WUBRG",i),String.at("WUBRG",rem((i+1),5))<>String.at("WUBRG",rem((i+2),5))}  
+    end
+  end
+
+  defmparser mana_cost do
+    many1(
+      choice([mana_symbol,mana_colorless,mana_hybrid])
+    )
   end
 
 end
