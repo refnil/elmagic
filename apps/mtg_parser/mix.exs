@@ -31,6 +31,9 @@ defmodule MtgParser.Mixfile do
   #
   # Type `mix help deps` for more examples and options
   defp deps do
-    [{:ex_parsec, "~> 0.2.1"}]
+    [
+      {:ex_parsec, "~> 0.2.1"},
+      {:excheck, github: "parroty/excheck", only: :test},
+    ]
   end
 end

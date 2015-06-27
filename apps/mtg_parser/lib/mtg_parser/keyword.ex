@@ -1,4 +1,4 @@
-defmodule MTGParser.Keyword do
+defmodule MtgParser.Keyword do
   import MtgParser
   import ExParsec.Base
   import ExParsec.Text
@@ -14,10 +14,9 @@ defmodule MTGParser.Keyword do
     end
   end
 
-  defmparser keywords_parser do
-    keyword |> 
-    Enum.map (&keyword_parser/1) |>
-    choice
+  defparser keywords_parser in p do
+    list = keyword |> Enum.map (&keyword_parser/1)
+    choice(list).(p)
   end
 
   def keyword do

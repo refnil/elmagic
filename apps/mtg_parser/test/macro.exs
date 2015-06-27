@@ -1,17 +1,35 @@
 defmodule ParserTestMacro do
   import ExUnit.Assertions
 
-  def parse_test_fun(parser, element) do
-    {value, result} = case element do
-      {c,r}   -> {c,r}
-      e       -> flunk("Wrong format in element list. " <> inspect(e))
-    end
-      
+  defp parse_test_message(value,received,result \\ nil) do
+      message = value <> " could not be parsed.\n" <> 
+      "Received: " <> inspect(received) <> "\n"
+      if result != nil do
+        message = message <>
+          "Instead of: " <> inspect(result)
+      end
+      message
+  end
+
+  def parse_test_fun(parser, {value,result,fun}) do
     received = ExParsec.parse_value(value,parser)
-    assert(received == {:ok,nil,result}, 
-      value <> " could not be parsed.\n" <> 
-      "Received: " <> inspect(received) <> "\n" <>
-      "Instead of: " <> inspect(result)
+    assert(
+      fun.(result,received),
+      parse_test_message(value,received)
+    )
+  end
+  def parse_test_fun(parser, {value,result}) do
+    received = ExParsec.parse_value(value,parser)
+    assert(
+      received == {:ok,nil,result}, 
+      parse_test_message(value,received,result)
+    )
+  end
+  def parse_test_fun(parser,single_value) do
+    received = ExParsec.parse_value(single_value,parser)
+    assert(
+      {:ok,_a,_b} = received, 
+      parse_test_message(single_value,received)
     )
   end
 
@@ -21,9 +39,8 @@ defmodule ParserTestMacro do
       {list_value,[]} = Code.eval_quoted(list_quoted,[],__CALLER__)
 
       for element <- list_value do
-        {value,_result} = element
         quote do
-         test unquote(testName <> " " <> value) do
+         test unquote(testName <> " " <> inspect(element)) do
             parse_test_fun(unquote(parser), unquote(element))
          end
       end
