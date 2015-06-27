@@ -14,8 +14,11 @@ defmodule MtgParserTest do
   end
 
   parse_test "Dual Mana", mana_dual do
-  ["W/B","R/U","G/G"] |> symbol_test_tuple
+    ["W/B","R/U","G/G"] |> symbol_test_tuple
   end
 
+  parse_test "Mana alt", mana_alt do
+    ["W/P","R/P","G/P","B/P","U/P","2/W","2/R","2/G","2/B","2/U","2/P"] |> symbol_test_tuple
+  end
 
 end

@@ -27,4 +27,12 @@ defmodule MtgParser do
       pair_left(one_of("WURGB"),char("}"))
       ) 
   end
+
+  defmparser mana_alt do
+    pair_both(
+      between(char("{"),one_of("WURBG2"),char("/")),
+      pair_left(one_of("WURGBP"),char("}"))
+      )
+  end
+
 end
