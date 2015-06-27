@@ -1,5 +1,6 @@
 defmodule MtgParser.Keyword do
   import MtgParser
+  import MtgParser.Symbol
   import ExParsec.Base
   import ExParsec.Text
   import ExParsec.Helpers
@@ -24,7 +25,7 @@ defmodule MtgParser.Keyword do
     "deathtouch",
     "defender",
     "double strike",
-    {"Equip", mana_symbol},
+    {"Equip", mana_cost},
     {"Enchant", target},
     "first strike",
     "flash",

@@ -18,4 +18,10 @@ defmodule Helpers.ExParsec.Text do
       end
     pipe(parser_list, join).(p)
   end
+
+  defmparser int do
+    either(
+      both(one_of("123456789"),many(digit()),&(Enum.join(List.insert_at(&2,0,&1),""))),
+      digit())
+  end
 end
