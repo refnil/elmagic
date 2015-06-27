@@ -7,12 +7,15 @@ defmodule MtgParser.Keyword do
 
   import Helpers.ExParsec.Text
 
+  defparser keyword_parser({name,parser}) in p do
+    ignore_2 = 
+      fn [name, _spaces, content] -> 
+        {name,content} 
+      end
+    pipe([keyword_parser(name), many1(space), parser], ignore_2).(p)
+  end
   defparser keyword_parser(keyword) in p do
-    ignore_2 = fn [name, _spaces, content] -> {name,content} end
-    case keyword do
-      {name, parser} -> pipe([keyword_parser(name), many1(spaces), parser], ignore_2).(p)
-      _ -> string_i(keyword).(p)
-    end
+    string_i(keyword).(p)
   end
 
   defparser keywords_parser in p do

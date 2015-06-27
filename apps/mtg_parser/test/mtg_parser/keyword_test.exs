@@ -10,6 +10,9 @@ defmodule Keyword_Test do
       "flying",
       "Flying",
       "defender",
+      "SoulshIft 3",
+      "Equip {W}",
+      "Frenzy 0",
     ]
   end
 
