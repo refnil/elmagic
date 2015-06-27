@@ -1,29 +1,23 @@
-defmodule KeywordParser do
+defmodule MTGParser.Keyword do
   import MtgParser
   import ExParsec.Base
   import ExParsec.Text
   import ExParsec.Helpers
 
-  defparser char_i(codepoint) in p do
-    down = char(String.downcase(codepoint))
-    up = char(String.upcase(codepoint))
-    either(down, up).(p)
-  end
-
-  defparser string_i(string) in p do
-    codepoints = String.codepoints(string)
-    parser_list= parser_sequence = codepoints |> Enum.map &char_i/1
-    join_and_lower = 
-    fn codepoints ->
-      Enum.join(codepoints,"") |> String.downcase
-    end
-
-    pipe(parser_list, join_and_lower).(p)
-
-  end
+  import Helpers.ExParsec.Text
 
   defparser keyword_parser(keyword) in p do
-    string_i(keyword).(p)
+    ignore_2 = fn [name, _spaces, content] -> {name,content} end
+    case keyword do
+      {name, parser} -> pipe([keyword_parser(name), many1(spaces), parser], ignore_2).(p)
+      _ -> string_i(keyword).(p)
+    end
+  end
+
+  defmparser keywords_parser do
+    keyword |> 
+    Enum.map (&keyword_parser/1) |>
+    choice
   end
 
   def keyword do
