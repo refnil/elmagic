@@ -34,7 +34,7 @@ defmodule MtgParser.Mixfile do
     [
       {:ex_parsec, "~> 0.2.1"},
       {:excheck, github: "parroty/excheck", only: :test},
-      {:mtg_json, in_umbrella: true, only: :test},
+      {:mtg_json, in_umbrella: true},
     ]
   end
 end
