@@ -7,7 +7,7 @@ defmodule MtgParser.Effect do
 
   import MtgParser.Target
   import MtgParser.Event
-  import MtgParser.Symbol
+  import MtgParser.Cost
 
   defmparser effect do
     eff <- effect_list_parser
@@ -39,7 +39,10 @@ defmodule MtgParser.Effect do
       ["scry", int],
       ["fateseal", int],
       ["exile", target],
-      ["add", mana_cost, "to your mana pool"]
+      ["refenerate", target],
+      ["add", listify(mana_cost," or "), "to your mana pool"],
+      [option(target),"deals",int,"damage to", target],
+      [option(target),"gain",int,"life"],
     ]
   end
 end

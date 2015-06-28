@@ -1,5 +1,5 @@
 defmodule MtgParser.Keyword do
-  import MtgParser.Symbol
+  import MtgParser.Cost
   import MtgParser.Object
   import ExParsec.Base
   import ExParsec.Text

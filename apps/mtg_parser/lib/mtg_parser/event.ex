@@ -7,7 +7,7 @@ defmodule MtgParser.Event do
   import MtgParser.Target
 
   defmparser event do
-    choice([event_when,event_at])
+    choice([event_when,event_at,event_until])
   end
 
   defmparser event_when do
@@ -20,11 +20,17 @@ defmodule MtgParser.Event do
   end
 
   defmparser event_at do
-    event_list |> Enum.map(&at_parser/1) |> choice
+    event_list |> Enum.map(&(timed_parser("at",&1))) |> choice
   end
 
-  defmparser at_parser(action) do
-    time <- string_i("at")
+  def event_until do
+    event_list |> 
+    Enum.map(&(timed_parser("until", &1))) |>
+    choice
+  end
+
+  defmparser timed_parser(word, action) do
+    time <- string_i(word)
     space
     found <- string_i(action)
     return {time,found}
@@ -44,6 +50,7 @@ defmodule MtgParser.Event do
       "becomes tapped", 
       "becomes uptapped", 
       "the beginning of your upkeep",
+      "until end of turn",
     ]
   end
 end

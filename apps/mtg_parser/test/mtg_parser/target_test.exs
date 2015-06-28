@@ -8,6 +8,7 @@ defmodule MtgParser.Target.Test do
     [
       "it",
       "**This**",
+      "you",
     ]
   end
 

@@ -10,6 +10,7 @@ defmodule MtgParser.Activated.Test do
       "{T}: tap target white creature.",
       "{2}, {T}: tap target white and blue creature.",
       "{1}{W}, {T}: Tap target creature without flying.",
+      "{T}: Add {W}, {B}, or {G} to your mana pool.",
     ]
   end
 end
