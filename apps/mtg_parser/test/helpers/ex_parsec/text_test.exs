@@ -69,4 +69,9 @@ defmodule Helpers.ExParsec.Text.Test do
     "five or more",
   ]
   end
+
+  parse_list "string plurial",string_plurial("card") do
+    ["card","cards"]
+  end
+
 end

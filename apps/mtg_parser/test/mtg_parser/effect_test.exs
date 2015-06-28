@@ -12,6 +12,8 @@ defmodule MtgParser.Effect.Test do
       "destroy target artifact.",
       "add {W} to your mana pool.",
       "fateseal 2.",
+      "draw a card.",
+      "draw two cards.",
     ]
   end
 

@@ -38,7 +38,8 @@ defmodule MtgParser.Effect do
       ["destroy", target],
       ["scry", int],
       ["fateseal", int],
-      ["add", mana_cost, "to your mana pool"]
+      ["add", mana_cost, "to your mana pool"],
+      ["draw", quantity, string_plurial("card")]
     ]
   end
 end
