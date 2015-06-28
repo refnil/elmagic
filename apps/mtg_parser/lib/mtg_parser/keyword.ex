@@ -1,6 +1,6 @@
 defmodule MtgParser.Keyword do
-  import MtgParser
   import MtgParser.Symbol
+  import MtgParser.Object
   import ExParsec.Base
   import ExParsec.Text
   import ExParsec.Helpers
@@ -18,9 +18,17 @@ defmodule MtgParser.Keyword do
     string_i(keyword).(p)
   end
 
+  defmparser remainder_text do
+    spaces()
+    char("(")
+    content <- many(none_of(")"))
+    char(")")
+    return(content)
+  end
+
   defparser keywords_parser in p do
     list = keyword |> Enum.map (&keyword_parser/1)
-    choice(list).(p)
+    pair_left(choice(list),skip(remainder_text)).(p)
   end
 
   def keyword do
@@ -57,6 +65,7 @@ defmodule MtgParser.Keyword do
     {"madness", mana_cost},
     "fear",
     {"morph", mana_cost},
+    {"megamorph", mana_cost},
     {"amplify", int},
     "provoke",
     "storm",

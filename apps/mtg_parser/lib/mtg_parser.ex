@@ -1,16 +1,14 @@
 defmodule MtgParser do
   import ExParsec.Helpers
   import ExParsec.Base
+  import ExParsec.Text
 
-  defmparser target do
-    zero
+  import MtgParser.Keyword
+
+  defmparser parse_text do
+    keywords <- many(pair_left(keywords_parser,spaces))
+    eof
+    return keywords
   end
 
-  defmparser caracteristic do
-    zero
-  end
-
-  defmparser object do
-    zero
-  end
 end
