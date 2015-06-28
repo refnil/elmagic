@@ -25,7 +25,7 @@ defmodule Helpers.ExParsec.Text do
       digit())
   end
 
-  defparser listify(parser,last_parser = " and ") in p do
+  defparser listify(parser,last_parser \\ " and ") in p do
     flatify = 
     fn
       {list,last} -> list ++ [last]
