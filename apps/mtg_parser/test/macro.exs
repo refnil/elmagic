@@ -30,10 +30,10 @@ defmodule ParserTestMacro do
   end
   def parse_test_fun(parser,single_value) do
     received = ExParsec.parse_value(single_value,parser)
-    assert(
-      {:ok,_a,_b} = received, 
-      parse_test_message(single_value,received)
-    )
+    message = parse_test_message(single_value,received)
+
+    assert(is_tuple(received),message)
+    assert(:ok == Enum.at(Tuple.to_list(received),0),message)
   end
 
   defmacro parse_test(testName, parser, clause) do
