@@ -7,11 +7,13 @@ defmodule MtgParser.Target do
   import Helpers.ExParsec.Text
 
   defmparser target do
-    either(target_it,target_rest)
+    either(target_simple,target_rest)
   end
 
-  defmparser target_it do
-    string("it")
+  defmparser target_simple do
+    either(
+      string("it"),
+      string("**This**"))
   end
 
   defmparser target_rest do
