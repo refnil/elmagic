@@ -11,7 +11,7 @@ defmodule MtgParser.Event do
   end
 
   defmparser event_when do
-    time <- string_i("When")
+    time <- choice([string_i("As"),string_i("Whenever"),string_i("When"),])
     space 
     who <- reference
     skip(space)
@@ -35,6 +35,15 @@ defmodule MtgParser.Event do
       "attacks",
       "blocks", 
       "end of combat", 
+      "dies", 
+      "enters the battlefield", 
+      "is turned face up",
+      "end of combat", 
+      "leaves the battlefield", 
+      "is put into a graveyard from the battlefield", 
+      "becomes tapped", 
+      "becomes uptapped", 
+      "the beginning of your upkeep",
     ]
   end
 end

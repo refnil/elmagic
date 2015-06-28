@@ -56,4 +56,17 @@ defmodule Helpers.ExParsec.Text.Test do
       "blue, red, red and blue", 
     ]
   end
+
+  parse_list "quantity", quantity do
+  [
+    "a",
+    "an",
+    "one",
+    "two",
+    "three or more",
+    "three",
+    "four",
+    "five or more",
+  ]
+  end
 end
