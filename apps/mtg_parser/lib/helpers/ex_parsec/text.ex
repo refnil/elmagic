@@ -24,4 +24,16 @@ defmodule Helpers.ExParsec.Text do
       both(one_of("123456789"),many(digit()),&(Enum.join(List.insert_at(&2,0,&1),""))),
       digit())
   end
+
+  defparser listify(parser) in p do
+    flatify = 
+    fn
+      {list,last} -> list ++ [last]
+      single -> [single]
+    end
+    single = parser
+    last = pair_right(string(" and "), parser)
+    more = pair_both(sep_by1(parser, string(", ")),last)
+    map(either(more,single),flatify).(p)
+  end
 end
