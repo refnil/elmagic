@@ -6,6 +6,7 @@ defmodule MtgParser.Effect do
   import Helpers.ExParsec.Text
 
   import MtgParser.Target
+  import MtgParser.Event
 
   defmparser effect do
     effect_list |> Enum.map(&effect_parser/1) |> choice 
@@ -15,13 +16,15 @@ defmodule MtgParser.Effect do
     found <- string_i(action)
     space
     parsed <- parser
+    delay <- option(event)
     char(".")
-    return {found,parsed}
+    return {found,parsed,delay}
   end
 
   def effect_list do
     [
-      {"tap", target}
+      {"tap", target},
+      {"sacrifice", target},
     ]
   end
 end

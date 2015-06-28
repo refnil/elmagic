@@ -37,8 +37,21 @@ defmodule ParserTestMacro do
   end
 
   defmacro parse_test(testName, parser, clause) do
+    list_quoted = Keyword.get(clause, :do, clause)
+    quote do
+      test unquote(testName) do
+        list = fn -> 
+          unquote(list_quoted)
+        end.()
+        for element <- list do
+          parse_test_fun(pair_left(unquote(parser),eof()), element)
+        end
+      end
+    end
+  end
+
+  defmacro parse_list(testName, parser, clause) do
       list_quoted = Keyword.get(clause, :do, clause)
-      Macro.to_string list_quoted
       {list_value,[]} = Code.eval_quoted(list_quoted,[],__CALLER__)
 
       for element <- list_value do

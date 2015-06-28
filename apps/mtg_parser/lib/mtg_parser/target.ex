@@ -7,6 +7,14 @@ defmodule MtgParser.Target do
   import Helpers.ExParsec.Text
 
   defmparser target do
+    either(target_it,target_rest)
+  end
+
+  defmparser target_it do
+    string("it")
+  end
+
+  defmparser target_rest do
     string_i("target")
     space
     target_creature
