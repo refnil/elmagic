@@ -25,14 +25,14 @@ defmodule Helpers.ExParsec.Text do
       digit())
   end
 
-  defparser listify(parser) in p do
+  defparser listify(parser,last_parser \\ " and ") in p do
     flatify = 
     fn
       {list,last} -> list ++ [last]
       single -> [single]
     end
     single = parser
-    last = pair_right(string(" and "), parser)
+    last = pair_right(string(last_parser), parser)
     more = pair_both(sep_by1(parser, string(", ")),last)
     map(either(more,single),flatify).(p)
   end
