@@ -25,6 +25,7 @@ defmodule MtgParser.Effect do
     [
       {"tap", target},
       {"sacrifice", target},
+      {"bolster", int},
     ]
   end
 end

@@ -12,6 +12,8 @@ defmodule MtgParser.Target.Test do
 
   parse_test "Target creature", target_creature do
     [
+      "another creature",
+      "another red creature",
       "creature",
       "red creature",
       "red creature with flying",

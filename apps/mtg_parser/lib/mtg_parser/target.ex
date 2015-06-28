@@ -5,6 +5,7 @@ defmodule MtgParser.Target do
 
   import MtgParser.Keyword
   import Helpers.ExParsec.Text
+  import Helpers.ExParsec.Dict
 
   defmparser target do
     either(target_it,target_rest)
@@ -25,12 +26,14 @@ defmodule MtgParser.Target do
   end
 
   defmparser target_creature do
-    with <- option(listify(creature_adjective))
+    another <- option(string_i("another"))
+    skip(space)
+    colors <- option(listify(creature_adjective))
     skip(space)
     string_i("creature")
     skip(space)
     keyword <- option(pair_both(either(string("with "),string("without ")),keyword_as_list))
-    return([color: with, keyword: keyword])
+    return_f([target: "creature", color: colors, keyword: keyword, another: another])
   end
 
   def creature_adjective do

@@ -11,8 +11,8 @@ defmodule MtgParser do
   end
 
   defmparser parse_text do
-    keywords <- many_flat(keyword_line)
-    activated <- many(activated)
+    keywords <- many_flat(prefix(keyword_line))
+    activated <- many(prefix(activated))
     eof
     return {keywords,activated}
   end

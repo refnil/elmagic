@@ -42,4 +42,17 @@ defmodule Keyword_Test do
       "Frenzy",
     ]
   end
+
+  parse_list "Ability word", ability_word do
+    [
+      "Ferocious - ",
+    ]
+  end
+
+  parse_list "Prefixing ability word", prefix(keyword_line) do
+    [
+      "Ferocious - Flying",
+      "Formidable - Flying, defender",
+    ]
+  end
 end

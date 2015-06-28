@@ -47,6 +47,18 @@ defmodule MtgParser.Keyword do
     r.(p)
   end
 
+  def prefix(parser) do
+    either(pair_both(ability_word,parser),parser)
+  end
+
+  defmparser ability_word do
+    ability_word <- many(alphanumeric)
+    space
+    char("-")
+    space
+    return(ability_word)
+  end
+
   def keyword_list do
   [
     "deathtouch",
