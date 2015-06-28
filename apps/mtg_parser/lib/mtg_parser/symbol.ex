@@ -6,7 +6,19 @@ defmodule MtgParser.Symbol do
   import Helpers.ExParsec.Text
 
   defmparser mana_symbol do
-    between_braces(one_of("WURBGSTQCP"))
+    between_braces(one_of("WURBGSP"))
+  end
+
+  defmparser tap_symbol do
+    between_braces(char("T"))
+  end
+
+  defmparser untap_symbol do
+    between_braces(char("Q"))
+  end
+
+  defmparser chaos_symbol do
+    between_braces(char("C"))
   end
 
   defmparser mana_colorless do

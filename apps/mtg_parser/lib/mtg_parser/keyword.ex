@@ -26,12 +26,28 @@ defmodule MtgParser.Keyword do
     return(content)
   end
 
-  defparser keywords_parser in p do
-    list = keyword |> Enum.map (&keyword_parser/1)
-    pair_left(choice(list),skip(remainder_text)).(p)
+  defparser keyword in p do
+    list = keyword_list |> Enum.map (&keyword_parser/1)
+    choice(list).(p)
   end
 
-  def keyword do
+  defparser keyword_line in p do
+    keyword_list = sep_by1(keyword, sequence([char(","),space()]))
+    keyword_with_remainder = pair_left(keyword,remainder_text)
+    pair_left(either(keyword_with_remainder,keyword_list),skip(newline)).(p)
+  end
+
+  defparser keyword_name in p do
+    name = fn 
+      {n,_p} -> n
+      n -> n
+    end
+
+    r = keyword_list |> Enum.map(name) |> choice
+    r.(p)
+  end
+
+  def keyword_list do
   [
     "deathtouch",
     "defender",

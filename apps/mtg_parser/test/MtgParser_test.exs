@@ -10,6 +10,7 @@ defmodule MtgParserTest do
   @card_name [
     "Aerie Bowmasters",
     "Aven Sunstriker",
+    "Dragon's Eye Sentry",
   ]
 
   defp filter_name(%{"name" => name}) do
@@ -20,8 +21,6 @@ defmodule MtgParserTest do
     {:ok, response} = MTGJson.get("DTK")
 
     card_list = response.body["cards"] |> Enum.filter &filter_name/1
-
-    IO.puts(Enum.count(card_list))
 
     for %{"name" => name, "text" => text} <- card_list do
       result = ExParsec.parse_value(text, MtgParser.parse_text)
