@@ -1,12 +1,35 @@
 defmodule MtgParserTest do
   use ExUnit.Case
+  @moduletag :long
 
-  import MtgParser
-  
-  test "Replace name by token" do
-    assert(replace_name_token(
-    {"Geist-Honored Monk","vigilance geist-honored monk's power and toughness are each equal to the number of creatures you control. when geist-honored monk enters the battlefield, put two 1/1 white spirit creature tokens with flying onto the battlefield."}) == 
-    "Vigilance **This**'s power and toughness are each equal to the number of creatures you control. When **This** enters the battlefield, put two 1/1 white Spirit creature tokens with flying onto the battlefield.")
+  setup context do
+    MTGJson.start
+    :ok
   end
 
+  @card_name [
+    "Aerie Bowmasters",
+    "Aven Sunstriker",
+    "Dragon's Eye Sentry",
+  ]
+
+  defp filter_name(%{"name" => name}) do
+      Enum.member?(@card_name, name)
+  end
+
+  test "Parse DTK" do
+    {:ok, response} = MTGJson.get("DTK")
+
+    card_list = response.body["cards"] |> Enum.filter &filter_name/1
+
+    for %{"name" => name, "text" => text} <- card_list do
+      result = ExParsec.parse_value(text, MtgParser.parse_text)
+      assert(Enum.at(result |> Tuple.to_list,0) == :ok,
+        "Name: " <> name <> "\n" <>
+        "Text: " <> text <> "\n" <>
+        "Received: " <> inspect(result)
+      )
+      IO.inspect(result)
+    end
+  end
 end

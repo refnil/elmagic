@@ -1,6 +1,9 @@
 defmodule ParserTestMacro do
   import ExUnit.Assertions
 
+  import ExParsec.Base
+  import ExParsec.Text
+
   defp parse_test_message(value,received,result \\ nil) do
       message = value <> " could not be parsed.\n" <> 
       "Received: " <> inspect(received) <> "\n"
@@ -41,7 +44,7 @@ defmodule ParserTestMacro do
       for element <- list_value do
         quote do
          test unquote(testName <> " " <> inspect(element)) do
-            parse_test_fun(unquote(parser), unquote(element))
+            parse_test_fun(pair_left(unquote(parser),eof()), unquote(element))
          end
       end
     end

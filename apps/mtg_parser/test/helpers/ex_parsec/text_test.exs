@@ -2,7 +2,11 @@ defmodule Helpers.ExParsec.Text.Test do
   use ExUnit.Case
   use ExCheck
 
+  import ExParsec.Text
+  import ExParsec.Base
   import Helpers.ExParsec.Text
+
+  import ParserTestMacro
 
   defp parse(parser, string, result) do
     assert({:ok,nil,result} == ExParsec.parse_value(string,parser))
@@ -43,4 +47,13 @@ defmodule Helpers.ExParsec.Text.Test do
     end
   end
 
+  parse_test "Listify", listify(choice([string("red"),string("blue")])) do
+    [
+      {"red and blue", ["red","blue"]},
+      {"red", ["red"]},
+      "blue",
+      {"blue, red and blue", ["blue","red","blue"]},
+      "blue, red, red and blue", 
+    ]
+  end
 end
