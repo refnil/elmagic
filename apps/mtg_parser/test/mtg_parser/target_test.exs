@@ -4,11 +4,18 @@ defmodule MtgParser.Target.Test do
   import ParserTestMacro
   import MtgParser.Target
 
+  parse_test "Target", target do
+    [
+      "it",
+    ]
+  end
 
   parse_test "Target creature", target_creature do
     [
       "creature",
       "red creature",
+      "red creature with flying",
+      "red creature without defender",
     ]
   end
 

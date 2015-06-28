@@ -6,9 +6,10 @@ defmodule MtgParser.Activated.Test do
 
   parse_test "Activated abilities", activated do
     [
-      {"{W}: tap target creature",{["W"],{"tap",[filter: nil]}}},
-      "{T}: tap target white creature",
-      "{2}, {T}: tap target white and blue creature",
+      {"{W}: tap target creature.",{["W"],{"tap",[color: nil, keyword: nil], nil}}},
+      "{T}: tap target white creature.",
+      "{2}, {T}: tap target white and blue creature.",
+      "{1}{W}, {T}: Tap target creature without flying.",
     ]
   end
 end

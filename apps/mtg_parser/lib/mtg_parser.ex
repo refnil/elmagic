@@ -4,6 +4,7 @@ defmodule MtgParser do
   import ExParsec.Text
 
   import MtgParser.Keyword
+  import MtgParser.Activated
 
   defmparser many_flat(parser) do
     map(many(parser),&List.flatten/1)
@@ -11,8 +12,9 @@ defmodule MtgParser do
 
   defmparser parse_text do
     keywords <- many_flat(keyword_line)
+    activated <- many(activated)
     eof
-    return keywords
+    return {keywords,activated}
   end
 
 end

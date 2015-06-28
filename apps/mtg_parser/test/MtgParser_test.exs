@@ -11,6 +11,7 @@ defmodule MtgParserTest do
     "Aerie Bowmasters",
     "Aven Sunstriker",
     "Dragon's Eye Sentry",
+    "Dromoka Dunecaster",
   ]
 
   defp filter_name(%{"name" => name}) do

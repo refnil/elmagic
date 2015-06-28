@@ -39,8 +39,8 @@ defmodule MtgParser.Keyword do
 
   defparser keyword_name in p do
     name = fn 
-      {n,_p} -> n
-      n -> n
+      {n,_p} -> string_i(n)
+      n -> string_i(n)
     end
 
     r = keyword_list |> Enum.map(name) |> choice

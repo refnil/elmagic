@@ -32,4 +32,14 @@ defmodule Keyword_Test do
     ]
   end
 
+  parse_test "Keyword name", keyword_name do
+    [
+      "flying",
+      "Flying",
+      "defender",
+      "SoulshIft",
+      "Equip",
+      "Frenzy",
+    ]
+  end
 end
