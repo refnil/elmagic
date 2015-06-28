@@ -16,7 +16,7 @@ defmodule MtgParser.Effect do
     found <- string_i(action)
     space
     parsed <- parser
-    delay <- option(event)
+    delay <- option(pair_right(space,event))
     char(".")
     return {found,parsed,delay}
   end

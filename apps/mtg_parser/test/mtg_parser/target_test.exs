@@ -4,9 +4,10 @@ defmodule MtgParser.Target.Test do
   import ParserTestMacro
   import MtgParser.Target
 
-  parse_test "Target", target do
+  parse_test "Target simple", target_simple do
     [
       "it",
+      "**This**",
     ]
   end
 

@@ -4,9 +4,11 @@ defmodule MtgParser.Triggered.Test do
   import ParserTestMacro
   import MtgParser.Triggered
   
-  parse_test "Triggered abilities", triggered do
+  parse_list "Triggered abilities", triggered do
     [
-      "When Mardu Blazebringer attacks or blocks, sacrifice it at end of combat."
+      "When **This** attacks, sacrifice it at end of combat.",
+      "When **This** attacks, sacrifice it.",
+      "When **This** attacks or blocks, sacrifice it.",
     ]
   end
 
