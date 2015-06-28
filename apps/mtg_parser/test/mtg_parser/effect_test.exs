@@ -6,7 +6,7 @@ defmodule MtgParser.Effect.Test do
 
   parse_test "Effect", effect do
     [
-      "tap target creature",
+      "tap target creature.",
     ]
   end
 

@@ -10,7 +10,14 @@ defmodule MtgParser.Activated do
   alias ExParsec.Monad.Parse
 
   def activated do
-    mana_tap = sequence([mana_cost,ignore(char(",")),ignore(space),tap_symbol])
+    mana_tap = Parse.m do
+      m <- mana_cost
+      char(",")
+      space
+      t <- tap_symbol
+      return m ++ [t]
+    end
+
     cost = choice([mana_tap,mana_cost,tap_symbol])
     
     Parse.m do

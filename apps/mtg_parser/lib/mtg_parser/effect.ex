@@ -15,6 +15,7 @@ defmodule MtgParser.Effect do
     found <- string_i(action)
     space
     parsed <- parser
+    char(".")
     return {found,parsed}
   end
 

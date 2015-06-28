@@ -3,6 +3,7 @@ defmodule MtgParser.Target do
   import ExParsec.Helpers
   import ExParsec.Text
 
+  import MtgParser.Keyword
   import Helpers.ExParsec.Text
 
   defmparser target do
@@ -11,11 +12,17 @@ defmodule MtgParser.Target do
     target_creature
   end
 
+  defmparser keyword_as_list do
+    listify(keyword_name)
+  end
+
   defmparser target_creature do
-    attr <- option(listify(creature_adjective))
+    with <- option(listify(creature_adjective))
     skip(space)
     string_i("creature")
-    return(filter: attr)
+    skip(space)
+    keyword <- option(pair_both(either(string("with "),string("without ")),keyword_as_list))
+    return([color: with, keyword: keyword])
   end
 
   def creature_adjective do

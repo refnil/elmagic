@@ -9,6 +9,8 @@ defmodule MtgParser.Target.Test do
     [
       "creature",
       "red creature",
+      "red creature with flying",
+      "red creature without defender",
     ]
   end
 
