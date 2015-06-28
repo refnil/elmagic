@@ -38,6 +38,7 @@ defmodule MtgParser.Effect do
       ["destroy", target],
       ["scry", int],
       ["fateseal", int],
+      ["exile", target],
       ["add", mana_cost, "to your mana pool"]
     ]
   end

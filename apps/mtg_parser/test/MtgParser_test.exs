@@ -14,6 +14,7 @@ defmodule MtgParserTest do
     "Dromoka Dunecaster",
     "Mardu Blazebringer",
     "Shatter",
+    "Erase",
   ]
 
   @set [

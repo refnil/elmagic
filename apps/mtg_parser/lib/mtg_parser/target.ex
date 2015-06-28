@@ -64,7 +64,7 @@ defmodule MtgParser.Target do
     [
       "artifact",
       "creature",
-      "enchantement",
+      "enchantment",
       "land",
       "planeswalker",
     ] 

@@ -22,6 +22,7 @@ defmodule MtgParser.Target.Test do
       "artifact",
       "dragon",
       "dragon you control",
+      "enchantment",
     ]
   end
 
