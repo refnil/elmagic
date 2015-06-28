@@ -4,10 +4,14 @@ defmodule MtgParser.Effect.Test do
   import ParserTestMacro
   import MtgParser.Effect
 
-  parse_test "Effect", effect do
+  # Don't forget to add the ending dot for the tests.
+  parse_list "Effect", effect do
     [
-      "tap target creature.",
+      {"tap target creature.",{["tap",[target: "creature"]],nil}},
       "sacrifice it.",
+      "destroy target artifact.",
+      "add {W} to your mana pool.",
+      "fateseal 2.",
     ]
   end
 

@@ -5,16 +5,27 @@ defmodule MtgParser do
 
   import MtgParser.Keyword
   import MtgParser.Activated
+  import MtgParser.Triggered
+  import MtgParser.Effect
+  import MtgParser.ProcessText
 
   defmparser many_flat(parser) do
     map(many(parser),&List.flatten/1)
   end
 
+  def parse(name, text) do
+    text_updated = replace_name_token({name, text})
+    ExParsec.parse_value(text_updated,parse_text)
+  end
+
+  defp text_part do
+    choice([keyword_line,activated,triggered,effect])
+  end
+
   defmparser parse_text do
-    keywords <- many_flat(prefix(keyword_line))
-    activated <- many(prefix(activated))
+    part <- many_flat(prefix(text_part))
     eof
-    return {keywords,activated}
+    return part
   end
 
 end

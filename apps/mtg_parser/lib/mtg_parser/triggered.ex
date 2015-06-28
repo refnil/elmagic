@@ -7,7 +7,7 @@ defmodule MtgParser.Triggered do
   import MtgParser.Effect
 
   defmparser triggered do
-    ev <-event
+    ev <- event
     char(",")
     space
     ef <- effect

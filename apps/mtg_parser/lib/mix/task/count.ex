@@ -19,8 +19,8 @@ defmodule Mix.Tasks.Count do
     count_working(set,card_list)
   end
 
-  defp parse_task(%{"text" => text}) do
-    case ExParsec.parse_value(text, MtgParser.parse_text) do
+  defp parse_task(%{"name" => name, "text" => text}) do
+    case MtgParser.parse(name,text) do
       {:ok,_s,_r} -> :ok
       _ -> :error
     end

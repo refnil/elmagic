@@ -1,6 +1,6 @@
 defmodule ProcessTextTest do
   use ExUnit.Case
-  import ProcessText
+  import MtgParser.ProcessText
   
   test "Replace name by token" do
     t = replace_name_token(

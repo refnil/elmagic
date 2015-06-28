@@ -13,8 +13,8 @@ defmodule MtgParser.Event do
   defmparser event_when do
     time <- string_i("When")
     space 
-    who <- target
-    space
+    who <- reference
+    skip(space)
     found <- listify(choice(Enum.map(event_list, fn(x) -> string_i(x) end))," or ")
     return {time,who,found}
   end
