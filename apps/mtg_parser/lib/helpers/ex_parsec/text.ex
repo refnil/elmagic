@@ -36,4 +36,22 @@ defmodule Helpers.ExParsec.Text do
     more = pair_both(sep_by1(parser, string(", ")),last)
     map(either(more,single),flatify).(p)
   end
+
+  defmparser quantity do
+    n <- choice(Enum.map(int_list,fn(x) -> string_i(x) end))
+    skip(space)
+    more <- option(string_i("or more"))
+    return {n,more}
+  end
+
+  def int_list do
+    [ "an", 
+      "a", 
+      "one", 
+      "two", 
+      "three", 
+      "four", 
+      "five", 
+    ]
+  end
 end
