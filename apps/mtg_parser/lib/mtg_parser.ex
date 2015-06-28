@@ -7,6 +7,7 @@ defmodule MtgParser do
   import MtgParser.Activated
   import MtgParser.Triggered
   import MtgParser.Effect
+  import MtgParser.Static
   import MtgParser.ProcessText
 
   defmparser many_flat(parser) do
@@ -19,7 +20,18 @@ defmodule MtgParser do
   end
 
   defp text_part do
-    choice([keyword_line,activated,triggered,effect])
+    pair_left(
+      choice(
+        [
+          keyword_line,
+          activated,
+          triggered,
+          effect,
+          static
+        ]
+      ),
+      spaces
+    )
   end
 
   defmparser parse_text do

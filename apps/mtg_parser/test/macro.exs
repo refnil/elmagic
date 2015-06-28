@@ -2,7 +2,6 @@ defmodule ParserTestMacro do
   import ExUnit.Assertions
 
   import ExParsec.Base
-  import ExParsec.Text
 
   defp parse_test_message(value,received,result \\ nil) do
       message = value <> " could not be parsed.\n" <> 

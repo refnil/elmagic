@@ -48,10 +48,4 @@ defmodule MtgParser.Symbol do
       {String.at("WUBRG",i),String.at("WUBRG",rem((i+1),5))<>String.at("WUBRG",rem((i+2),5))}  
     end
   end
-
-  defmparser mana_cost do
-    many1(
-      choice([mana_symbol,mana_colorless,mana_hybrid])
-    )
-  end
 end

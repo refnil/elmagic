@@ -14,6 +14,8 @@ defmodule MtgParser.Effect.Test do
       "fateseal 2.",
       "draw a card.",
       "draw two cards.",
+      "you gain 1 life.",
+      "it deals 3 damage to target creature.",
     ]
   end
 

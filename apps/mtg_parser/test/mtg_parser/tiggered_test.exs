@@ -11,6 +11,7 @@ defmodule MtgParser.Triggered.Test do
       "When **This** attacks or blocks, sacrifice it.",
       "When **This** attacks or blocks, sacrifice it at end of combat.",
       "When a dragon you control attacks, sacrifice it.", 
+      "When **This** enters the battlefield, you gain 1 life.",
     ]
   end
 

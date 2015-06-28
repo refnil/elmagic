@@ -24,9 +24,11 @@ defmodule MtgParser.Target do
   end
 
   defmparser reference_simple do
-    either(
+    choice([
       string("it"),
-      string("**This**"))
+      string("**This**"),
+      string("you")
+    ])
   end
 
   def target do
@@ -64,7 +66,7 @@ defmodule MtgParser.Target do
     [
       "artifact",
       "creature",
-      "enchantement",
+      "enchantment",
       "land",
       "planeswalker",
     ] 

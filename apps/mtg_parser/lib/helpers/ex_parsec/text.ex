@@ -36,7 +36,7 @@ defmodule Helpers.ExParsec.Text do
       single -> [single]
     end
     single = parser
-    last = pair_right(string(last_parser), parser)
+    last = pair_right(pair_both(skip(char(",")),string(last_parser)), parser)
     more = pair_both(sep_by1(parser, string(", ")),last)
     map(either(more,single),flatify).(p)
   end

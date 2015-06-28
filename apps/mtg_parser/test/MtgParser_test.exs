@@ -2,7 +2,7 @@ defmodule MtgParserTest do
   use ExUnit.Case
   @moduletag :long
 
-  setup context do
+  setup do
     MTGJson.start
     :ok
   end
@@ -14,6 +14,10 @@ defmodule MtgParserTest do
     "Dromoka Dunecaster",
     "Mardu Blazebringer",
     "Shatter",
+    "Erase",
+    "Monastery Swiftspear",
+    "Sandsteppe Citadel",
+    "Scoured Barrens",
   ]
 
   @set [
