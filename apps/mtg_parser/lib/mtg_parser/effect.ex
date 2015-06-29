@@ -9,31 +9,26 @@ defmodule MtgParser.Effect do
   import MtgParser.Event
   import MtgParser.Cost
 
+  import MtgParser.Effect.Helper
+
+  defp addDelay(s,nil) do
+    s
+  end
+  defp addDelay(s,d) do
+    s ++ [delay: d]
+  end
+
   defmparser effect do
-    eff <- effect_list_parser
+    {n,s} <- effect_list_parser(effect_list)
     delay <- option(pair_right(space,event))
     char(".")
-    return {eff,delay}
-  end
-
-  def create_effect_parser(list) do
-    converter = fn
-      e when is_bitstring(e) -> string_i e
-      e -> e
-    end
-    parsers = Enum.map(list,converter)
-    parsers = Enum.intersperse(parsers,skip(space))
-    pipe(parsers,fn list -> Enum.filter(list, &(!is_nil(&1))) end)
-  end
-
-  def effect_list_parser do
-    effect_list |> Enum.map(&create_effect_parser/1) |> choice 
+    return {n,addDelay(s,delay)}
   end
 
   def effect_list do
     [
-      ["tap", target],
       ["sacrifice", target],
+      ["tap", target],
       ["bolster", int],
       ["destroy", target],
       ["scry", int],
@@ -43,6 +38,7 @@ defmodule MtgParser.Effect do
       ["add", listify(mana_cost," or "), "to your mana pool"],
       [option(target),"deals",int,"damage to", target],
       [option(target),"gain",int,"life"],
-    ]
+    ] 
   end
 end
+

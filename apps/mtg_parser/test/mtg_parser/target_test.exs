@@ -3,8 +3,9 @@ defmodule MtgParser.Target.Test do
 
   import ParserTestMacro
   import MtgParser.Target
+  alias MtgParser.Target.Simple
 
-  parse_test "Referemce simple", reference_simple do
+  parse_test "Referemce simple", Simple.reference_simple do
     [
       "it",
       "**This**",
