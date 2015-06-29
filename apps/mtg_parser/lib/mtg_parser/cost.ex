@@ -4,19 +4,7 @@ defmodule MtgParser.Cost do
   import ExParsec.Text
 
   import MtgParser.Symbol
-  import Helpers.ExParsec.Text
-
-  defmparser mana_tap do
-    m <- mana_cost
-    char(",")
-    space
-    t <- tap_symbol
-    return m ++ [t]
-  end
-
-  def cost do
-    choice([mana_tap,mana_cost,tap_symbol])
-  end
+  import MtgParser.Effect.Costable
 
   def mana_cost do
     many1(
@@ -25,8 +13,8 @@ defmodule MtgParser.Cost do
   end
 
   def cost do
-    zero
+    option = choice([mana_cost,tap_symbol,effect])
+    list = sep_by1(option,string(", "))
+    map(list,&List.flatten/1)
   end
-
-
 end

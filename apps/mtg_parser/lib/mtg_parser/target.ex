@@ -5,6 +5,8 @@ defmodule MtgParser.Target do
 
   import MtgParser.Keyword
   import MtgParser.Subtype
+  import MtgParser.Target.Simple, except: [reference: 0]
+
   import Helpers.ExParsec.Text
   import Helpers.ExParsec.Dict
 
@@ -21,14 +23,6 @@ defmodule MtgParser.Target do
     space
     permanent <- reference_permanent
     return {count, permanent}
-  end
-
-  defmparser reference_simple do
-    choice([
-      string("it"),
-      string("**This**"),
-      string("you")
-    ])
   end
 
   def target do
@@ -56,20 +50,6 @@ defmodule MtgParser.Target do
     skip(space)
     keyword <- option(pair_both(either(string("with "),string("without ")),keyword_as_list))
     return_f([target: permanent, color: colors, keyword: keyword, another: another, controller: controller])
-  end
-
-  def permanent_parser do
-    permanent_type |> Enum.map(&string_i/1) |> choice
-  end
-
-  def permanent_type do
-    [
-      "artifact",
-      "creature",
-      "enchantment",
-      "land",
-      "planeswalker",
-    ] 
   end
 
   def creature_subtype_parser do

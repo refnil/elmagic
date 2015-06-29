@@ -1,9 +1,10 @@
 defmodule MtgParser.Keyword do
-  import MtgParser.Cost
-  import MtgParser.Object
   import ExParsec.Base
   import ExParsec.Text
   import ExParsec.Helpers
+
+  import MtgParser.Cost
+  import MtgParser.Target.Simple
 
   import Helpers.ExParsec.Text
 
@@ -65,7 +66,7 @@ defmodule MtgParser.Keyword do
     "defender",
     "double strike",
     {"Equip", mana_cost},
-    {"Enchant", target},
+    {"Enchant", permanent_parser},
     "first strike",
     "flash",
     "flying",
@@ -74,7 +75,7 @@ defmodule MtgParser.Keyword do
     "indestructible",
     "intimidate",
     "lifelink",
-    {"protection from", caracteristic},
+    #{"protection from", caracteristic},
     "reach",
     "shroud",
     "trample",
@@ -97,7 +98,7 @@ defmodule MtgParser.Keyword do
     {"amplify", int},
     "provoke",
     "storm",
-    {"affinity for" ,target},
+    {"affinity for" ,reference},
     {"entwine", mana_cost},
     {"modular", int},
     "sunburst",
@@ -124,7 +125,7 @@ defmodule MtgParser.Keyword do
     "gravestrom",
     {"poisonous", int},
     {"transfigure", mana_cost},
-    {"champion an", object},
+    #{"champion an", object},
     "changeling",
     {"Evoke", mana_cost},
     "hideaway",
