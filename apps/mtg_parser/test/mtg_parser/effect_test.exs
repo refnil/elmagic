@@ -16,6 +16,9 @@ defmodule MtgParser.Effect.Test do
       "draw two cards.",
       "you gain 1 life.",
       "it deals 3 damage to target creature.",
+      "discards a card.",
+      "discard a card.",
+      "Creature gets +1/+2.",
     ]
   end
 
